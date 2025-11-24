@@ -1,0 +1,54 @@
+{
+  "target": "bmv2",
+  "p4info": "build/cm.p4.p4info.txtpb",
+  "bmv2_json": "build/cm.json",
+  "table_entries": [
+    {
+      "table": "MyIngress.forwarding",
+      "default_action": true,
+      "action_name": "MyIngress.drop",
+      "action_params": { }
+    },
+    {
+      "table": "MyIngress.forwarding",
+      "match": {
+        "standard_metadata.ingress_port": 1
+      },
+      "action_name": "MyIngress.set_egress_port",
+      "action_params": {
+        "egress_port": 3
+      }
+    },
+    {
+      "table": "MyIngress.forwarding",
+      "match": {
+        "standard_metadata.ingress_port": 3
+      },
+      "action_name": "MyIngress.set_egress_port",
+      "action_params": {
+        "egress_port": 1
+      }
+    },
+
+    {
+      "table": "MyIngress.forwarding",
+      "match": {
+        "standard_metadata.ingress_port": 2
+      },
+      "action_name": "MyIngress.set_egress_port",
+      "action_params": {
+        "egress_port": 4
+      }
+    },
+    {
+      "table": "MyIngress.forwarding",
+      "match": {
+        "standard_metadata.ingress_port": 4
+      },
+      "action_name": "MyIngress.set_egress_port",
+      "action_params": {
+        "egress_port": 2
+      }
+    }
+  ]
+}

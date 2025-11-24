@@ -1,0 +1,113 @@
+# proto-file: p4/config/v1/p4info.proto
+# proto-message: p4.config.v1.P4Info
+
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 38687552
+    name: "MyIngress.forwarding"
+    alias: "forwarding"
+  }
+  match_fields {
+    id: 1
+    name: "standard_metadata.ingress_port"
+    bitwidth: 9
+    match_type: EXACT
+  }
+  action_refs {
+    id: 27787745
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  initial_default_action {
+    action_id: 25652968
+  }
+  size: 64
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 18836631
+    name: "MyIngress.sketch_count"
+    alias: "sketch_count"
+  }
+}
+actions {
+  preamble {
+    id: 27787745
+    name: "MyIngress.set_egress_port"
+    alias: "set_egress_port"
+  }
+  params {
+    id: 1
+    name: "egress_port"
+    bitwidth: 9
+  }
+}
+registers {
+  preamble {
+    id: 380561080
+    name: "MyIngress.sketch0"
+    alias: "sketch0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 28
+}
+registers {
+  preamble {
+    id: 376504893
+    name: "MyIngress.sketch1"
+    alias: "sketch1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 28
+}
+registers {
+  preamble {
+    id: 373698023
+    name: "MyIngress.sketch2"
+    alias: "sketch2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 64
+      }
+    }
+  }
+  size: 28
+}
+type_info {
+}
