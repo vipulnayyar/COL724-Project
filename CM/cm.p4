@@ -165,7 +165,7 @@ control MyIngress(inout headers hdr,
 
         // Sketch 1
 
-        hash(meta.index_sketch1, HashAlgorithm.crc32_custom, (bit<16>)0,
+        hash(meta.index_sketch1, HashAlgorithm.crc32_custom, (bit<16>)1,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
             (bit<32>)SKETCH_COUNTERS_PER_ROW);
             
@@ -176,7 +176,7 @@ control MyIngress(inout headers hdr,
         sketch1.write(meta.index_sketch1, meta.value_sketch1);
 
         // Sketch 2
-        hash(meta.index_sketch2, HashAlgorithm.crc32_custom, (bit<16>)0,
+        hash(meta.index_sketch2, HashAlgorithm.crc32_custom, (bit<16>)2,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
             (bit<32>)SKETCH_COUNTERS_PER_ROW);
             
