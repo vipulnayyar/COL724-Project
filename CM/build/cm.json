@@ -22,19 +22,9 @@
         ["metadata.index_sketch0", 32, false],
         ["metadata.index_sketch1", 32, false],
         ["metadata.index_sketch2", 32, false],
-        ["metadata.index_sketch3", 32, false],
-        ["metadata.index_sketch4", 32, false],
-        ["metadata.index_sketch5", 32, false],
-        ["metadata.index_sketch6", 32, false],
-        ["metadata.index_sketch7", 32, false],
-        ["metadata.value_sketch0", 64, false],
-        ["metadata.value_sketch1", 64, false],
-        ["metadata.value_sketch2", 64, false],
-        ["metadata.value_sketch3", 64, false],
-        ["metadata.value_sketch4", 64, false],
-        ["metadata.value_sketch5", 64, false],
-        ["metadata.value_sketch6", 64, false],
-        ["metadata.value_sketch7", 64, false]
+        ["metadata.value_sketch0", 16, false],
+        ["metadata.value_sketch1", 16, false],
+        ["metadata.value_sketch2", 16, false]
       ]
     },
     {
@@ -319,8 +309,8 @@
       "name" : "deparser",
       "id" : 0,
       "source_info" : {
-        "filename" : "include/parsers.p4",
-        "line" : 49,
+        "filename" : "cm.p4",
+        "line" : 120,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -336,36 +326,36 @@
       "id" : 0,
       "source_info" : {
         "filename" : "cm.p4",
-        "line" : 42,
+        "line" : 149,
         "column" : 26,
         "source_fragment" : "sketch0"
       },
-      "size" : 28,
-      "bitwidth" : 64
+      "size" : 16,
+      "bitwidth" : 16
     },
     {
       "name" : "MyIngress.sketch1",
       "id" : 1,
       "source_info" : {
         "filename" : "cm.p4",
-        "line" : 43,
+        "line" : 150,
         "column" : 26,
         "source_fragment" : "sketch1"
       },
-      "size" : 28,
-      "bitwidth" : 64
+      "size" : 16,
+      "bitwidth" : 16
     },
     {
       "name" : "MyIngress.sketch2",
       "id" : 2,
       "source_info" : {
         "filename" : "cm.p4",
-        "line" : 44,
+        "line" : 151,
         "column" : 26,
         "source_fragment" : "sketch2"
       },
-      "size" : 28,
-      "bitwidth" : 64
+      "size" : 16,
+      "bitwidth" : 16
     }
   ],
   "calculations" : [
@@ -460,30 +450,8 @@
       "primitives" : []
     },
     {
-      "name" : "MyIngress.drop",
+      "name" : "MyIngress.do_sketch_count",
       "id" : 1,
-      "runtime_data" : [],
-      "primitives" : [
-        {
-          "op" : "mark_to_drop",
-          "parameters" : [
-            {
-              "type" : "header",
-              "value" : "standard_metadata"
-            }
-          ],
-          "source_info" : {
-            "filename" : "cm.p4",
-            "line" : 49,
-            "column" : 8,
-            "source_fragment" : "mark_to_drop(standard_metadata)"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "MyIngress.sketch_count",
-      "id" : 2,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -500,8 +468,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 74,
+            "line" : 157,
+            "column" : 14,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
         },
@@ -519,8 +487,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 92,
+            "line" : 157,
+            "column" : 32,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
         },
@@ -538,8 +506,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 110,
+            "line" : 157,
+            "column" : 50,
             "source_fragment" : "hdr.tcp.srcPort"
           }
         },
@@ -557,8 +525,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 127,
+            "line" : 157,
+            "column" : 67,
             "source_fragment" : "hdr.tcp.dstPort"
           }
         },
@@ -576,8 +544,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 144,
+            "line" : 157,
+            "column" : 84,
             "source_fragment" : "hdr.ipv4.protocol"
           }
         },
@@ -598,14 +566,14 @@
             },
             {
               "type" : "hexstr",
-              "value" : "0x0000001c"
+              "value" : "0x00000010"
             }
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
+            "line" : 156,
             "column" : 8,
-            "source_fragment" : "hash(meta.index_sketch0, HashAlgorithm.crc32_custom, (bit<16>)0, {hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol}, (bit<32>)28)"
+            "source_fragment" : "hash(meta.index_sketch0, HashAlgorithm.crc32_custom, (bit<16>)0, ..."
           }
         },
         {
@@ -626,10 +594,49 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 178,
+            "line" : 160,
+            "column" : 8,
             "source_fragment" : "sketch0.read(meta.value_sketch0, meta.index_sketch0)"
           }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "cm.p4",
+            "line" : 161,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.value_sketch0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x9"
+            }
+          ]
         },
         {
           "op" : "assign",
@@ -654,13 +661,13 @@
                       },
                       "right" : {
                         "type" : "hexstr",
-                        "value" : "0x0000000000000001"
+                        "value" : "0x0001"
                       }
                     }
                   },
                   "right" : {
                     "type" : "hexstr",
-                    "value" : "0xffffffffffffffff"
+                    "value" : "0xffff"
                   }
                 }
               }
@@ -668,9 +675,9 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 232,
-            "source_fragment" : "meta.value_sketch0 = meta.value_sketch0 +1"
+            "line" : 162,
+            "column" : 12,
+            "source_fragment" : "meta.value_sketch0 = meta.value_sketch0 + 1"
           }
         },
         {
@@ -691,8 +698,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 53,
-            "column" : 276,
+            "line" : 164,
+            "column" : 8,
             "source_fragment" : "sketch0.write(meta.index_sketch0, meta.value_sketch0)"
           }
         },
@@ -710,8 +717,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 74,
+            "line" : 169,
+            "column" : 14,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
         },
@@ -729,8 +736,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 92,
+            "line" : 169,
+            "column" : 32,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
         },
@@ -748,8 +755,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 110,
+            "line" : 169,
+            "column" : 50,
             "source_fragment" : "hdr.tcp.srcPort"
           }
         },
@@ -767,8 +774,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 127,
+            "line" : 169,
+            "column" : 67,
             "source_fragment" : "hdr.tcp.dstPort"
           }
         },
@@ -786,8 +793,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 144,
+            "line" : 169,
+            "column" : 84,
             "source_fragment" : "hdr.ipv4.protocol"
           }
         },
@@ -808,14 +815,14 @@
             },
             {
               "type" : "hexstr",
-              "value" : "0x0000001c"
+              "value" : "0x00000010"
             }
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
+            "line" : 168,
             "column" : 8,
-            "source_fragment" : "hash(meta.index_sketch1, HashAlgorithm.crc32_custom, (bit<16>)0, {hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol}, (bit<32>)28)"
+            "source_fragment" : "hash(meta.index_sketch1, HashAlgorithm.crc32_custom, (bit<16>)0, ..."
           }
         },
         {
@@ -836,10 +843,49 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 178,
+            "line" : 172,
+            "column" : 8,
             "source_fragment" : "sketch1.read(meta.value_sketch1, meta.index_sketch1)"
           }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "cm.p4",
+            "line" : 173,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.value_sketch1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x13"
+            }
+          ]
         },
         {
           "op" : "assign",
@@ -864,13 +910,13 @@
                       },
                       "right" : {
                         "type" : "hexstr",
-                        "value" : "0x0000000000000001"
+                        "value" : "0x0001"
                       }
                     }
                   },
                   "right" : {
                     "type" : "hexstr",
-                    "value" : "0xffffffffffffffff"
+                    "value" : "0xffff"
                   }
                 }
               }
@@ -878,9 +924,9 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 232,
-            "source_fragment" : "meta.value_sketch1 = meta.value_sketch1 +1"
+            "line" : 174,
+            "column" : 12,
+            "source_fragment" : "meta.value_sketch1 = meta.value_sketch1 + 1"
           }
         },
         {
@@ -901,8 +947,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 54,
-            "column" : 276,
+            "line" : 176,
+            "column" : 8,
             "source_fragment" : "sketch1.write(meta.index_sketch1, meta.value_sketch1)"
           }
         },
@@ -920,8 +966,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 74,
+            "line" : 180,
+            "column" : 14,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
         },
@@ -939,8 +985,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 92,
+            "line" : 180,
+            "column" : 32,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
         },
@@ -958,8 +1004,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 110,
+            "line" : 180,
+            "column" : 50,
             "source_fragment" : "hdr.tcp.srcPort"
           }
         },
@@ -977,8 +1023,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 127,
+            "line" : 180,
+            "column" : 67,
             "source_fragment" : "hdr.tcp.dstPort"
           }
         },
@@ -996,8 +1042,8 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 144,
+            "line" : 180,
+            "column" : 84,
             "source_fragment" : "hdr.ipv4.protocol"
           }
         },
@@ -1018,14 +1064,14 @@
             },
             {
               "type" : "hexstr",
-              "value" : "0x0000001c"
+              "value" : "0x00000010"
             }
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
+            "line" : 179,
             "column" : 8,
-            "source_fragment" : "hash(meta.index_sketch2, HashAlgorithm.crc32_custom, (bit<16>)0, {hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol}, (bit<32>)28)"
+            "source_fragment" : "hash(meta.index_sketch2, HashAlgorithm.crc32_custom, (bit<16>)0, ..."
           }
         },
         {
@@ -1046,10 +1092,49 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 178,
+            "line" : 183,
+            "column" : 8,
             "source_fragment" : "sketch2.read(meta.value_sketch2, meta.index_sketch2)"
           }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "cm.p4",
+            "line" : 184,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.value_sketch2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x1d"
+            }
+          ]
         },
         {
           "op" : "assign",
@@ -1074,13 +1159,13 @@
                       },
                       "right" : {
                         "type" : "hexstr",
-                        "value" : "0x0000000000000001"
+                        "value" : "0x0001"
                       }
                     }
                   },
                   "right" : {
                     "type" : "hexstr",
-                    "value" : "0xffffffffffffffff"
+                    "value" : "0xffff"
                   }
                 }
               }
@@ -1088,9 +1173,9 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 232,
-            "source_fragment" : "meta.value_sketch2 = meta.value_sketch2 +1"
+            "line" : 185,
+            "column" : 12,
+            "source_fragment" : "meta.value_sketch2 = meta.value_sketch2 + 1"
           }
         },
         {
@@ -1111,9 +1196,31 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 55,
-            "column" : 276,
+            "line" : 187,
+            "column" : 8,
             "source_fragment" : "sketch2.write(meta.index_sketch2, meta.value_sketch2)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.drop",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "cm.p4",
+            "line" : 191,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
           }
         }
       ]
@@ -1142,7 +1249,7 @@
           ],
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 61,
+            "line" : 197,
             "column" : 8,
             "source_fragment" : "standard_metadata.egress_spec = egress_port"
           }
@@ -1156,20 +1263,20 @@
       "id" : 0,
       "source_info" : {
         "filename" : "cm.p4",
-        "line" : 38,
+        "line" : 145,
         "column" : 8,
         "source_fragment" : "MyIngress"
       },
       "init_table" : "node_2",
       "tables" : [
         {
-          "name" : "tbl_sketch_count",
+          "name" : "tbl_do_sketch_count",
           "id" : 0,
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 81,
+            "line" : 216,
             "column" : 12,
-            "source_fragment" : "sketch_count()"
+            "source_fragment" : "do_sketch_count()"
           },
           "key" : [],
           "match_type" : "exact",
@@ -1178,14 +1285,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [2],
-          "actions" : ["MyIngress.sketch_count"],
+          "action_ids" : [1],
+          "actions" : ["MyIngress.do_sketch_count"],
           "base_default_next" : "MyIngress.forwarding",
           "next_tables" : {
-            "MyIngress.sketch_count" : "MyIngress.forwarding"
+            "MyIngress.do_sketch_count" : "MyIngress.forwarding"
           },
           "default_entry" : {
-            "action_id" : 2,
+            "action_id" : 1,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -1196,7 +1303,7 @@
           "id" : 1,
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 64,
+            "line" : 200,
             "column" : 10,
             "source_fragment" : "forwarding"
           },
@@ -1214,7 +1321,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [3, 1, 0],
+          "action_ids" : [3, 2, 0],
           "actions" : ["MyIngress.set_egress_port", "MyIngress.drop", "NoAction"],
           "base_default_next" : null,
           "next_tables" : {
@@ -1223,7 +1330,7 @@
             "NoAction" : null
           },
           "default_entry" : {
-            "action_id" : 1,
+            "action_id" : 2,
             "action_const" : false,
             "action_data" : [],
             "action_entry_const" : false
@@ -1237,7 +1344,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "cm.p4",
-            "line" : 80,
+            "line" : 215,
             "column" : 12,
             "source_fragment" : "hdr.ipv4.isValid()"
           },
@@ -1252,7 +1359,7 @@
               }
             }
           },
-          "true_next" : "tbl_sketch_count",
+          "true_next" : "tbl_do_sketch_count",
           "false_next" : "MyIngress.forwarding"
         }
       ]
@@ -1262,7 +1369,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "cm.p4",
-        "line" : 93,
+        "line" : 224,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },

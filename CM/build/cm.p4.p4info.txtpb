@@ -40,16 +40,16 @@ actions {
 }
 actions {
   preamble {
-    id: 25652968
-    name: "MyIngress.drop"
-    alias: "drop"
+    id: 28482681
+    name: "MyIngress.do_sketch_count"
+    alias: "do_sketch_count"
   }
 }
 actions {
   preamble {
-    id: 18836631
-    name: "MyIngress.sketch_count"
-    alias: "sketch_count"
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
   }
 }
 actions {
@@ -73,11 +73,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 64
+        bitwidth: 16
       }
     }
   }
-  size: 28
+  size: 16
 }
 registers {
   preamble {
@@ -88,11 +88,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 64
+        bitwidth: 16
       }
     }
   }
-  size: 28
+  size: 16
 }
 registers {
   preamble {
@@ -103,11 +103,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 64
+        bitwidth: 16
       }
     }
   }
-  size: 28
+  size: 16
 }
 type_info {
 }
