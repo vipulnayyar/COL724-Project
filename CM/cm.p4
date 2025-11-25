@@ -13,6 +13,8 @@ typedef bit<32> ip4Addr_t;
 #define SKETCH_COUNTER_BIT_WIDTH 16
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
+
+
 header ethernet_t {
     macAddr_t dstAddr;
     macAddr_t srcAddr;
@@ -63,6 +65,9 @@ struct metadata {
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch0;
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch1;
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch2;
+
+
+
     
 }
 
@@ -149,6 +154,7 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch0;
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
+
     
     action do_sketch_count()
     {
@@ -187,10 +193,13 @@ control MyIngress(inout headers hdr,
         sketch2.write(meta.index_sketch2, meta.value_sketch2);
     }
 
+    
+
     action drop() {
         mark_to_drop(standard_metadata);
     }
 
+    
     
 
    action set_egress_port(bit<9> egress_port){
