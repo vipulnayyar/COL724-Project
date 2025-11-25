@@ -167,7 +167,7 @@ control MyIngress(inout headers hdr,
             
         hash(meta.sign0,
              HashAlgorithm.crc32_custom,
-             (bit<32>) (1000 + 0),  
+             (bit<32>) (0),  
              { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr,
                hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, 
                (bit<32>)2
@@ -190,6 +190,14 @@ control MyIngress(inout headers hdr,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
             (bit<32>)SKETCH_COUNTERS_PER_ROW);
             
+        hash(meta.sign1,
+             HashAlgorithm.crc32_custom,
+             (bit<32>) (1),  
+             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr,
+               hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, 
+               (bit<32>)2
+        );
+
         sketch1.read(meta.value_sketch1, meta.index_sketch1);
         if (meta.sign1 == 0 && meta.value_sketch1 < (SKETCH_COUNTER_MAX_COUNT )){
             meta.value_sketch1 = meta.value_sketch1 + 1;
@@ -204,6 +212,14 @@ control MyIngress(inout headers hdr,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
             (bit<32>)SKETCH_COUNTERS_PER_ROW);
             
+        hash(meta.sign2,
+             HashAlgorithm.crc32_custom,
+             (bit<32>) (2),  
+             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr,
+               hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, 
+               (bit<32>)2
+        );
+
         sketch2.read(meta.value_sketch2, meta.index_sketch2);
         if (meta.sign2 == 0 && meta.value_sketch2 < (SKETCH_COUNTER_MAX_COUNT )){
             meta.value_sketch2 = meta.value_sketch2 + 1;
