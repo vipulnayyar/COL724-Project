@@ -363,9 +363,9 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
+        //if (hdr.ipv4.isValid()){
             pcm_insert();
-        }
+        //}
 
         forwarding.apply();
     }
