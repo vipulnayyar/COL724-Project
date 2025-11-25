@@ -1,0 +1,262 @@
+#include <core.p4>
+#include <v1model.p4>
+
+const bit<16> TYPE_IPV4 = 0x800;
+
+typedef bit<9>  egressSpec_t;
+typedef bit<48> macAddr_t;
+typedef bit<32> ip4Addr_t;
+
+
+#define SKETCH_NUM_ROWS 3
+#define SKETCH_COUNTERS_PER_ROW 16
+#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
+
+header ethernet_t {
+    macAddr_t dstAddr;
+    macAddr_t srcAddr;
+    bit<16>   etherType;
+}
+
+header ipv4_t {
+    bit<4>    version;
+    bit<4>    ihl;
+    bit<6>    dscp;
+    bit<2>    ecn;
+    bit<16>   totalLen;
+    bit<16>   identification;
+    bit<3>    flags;
+    bit<13>   fragOffset;
+    bit<8>    ttl;
+    bit<8>    protocol;
+    bit<16>   hdrChecksum;
+    ip4Addr_t srcAddr;
+    ip4Addr_t dstAddr;
+}
+
+header tcp_t{
+    bit<16> srcPort;
+    bit<16> dstPort;
+    bit<32> seqNo;
+    bit<32> ackNo;
+    bit<4>  dataOffset;
+    bit<4>  res;
+    bit<1>  cwr;
+    bit<1>  ece;
+    bit<1>  urg;
+    bit<1>  ack;
+    bit<1>  psh;
+    bit<1>  rst;
+    bit<1>  syn;
+    bit<1>  fin;
+    bit<16> window;
+    bit<16> checksum;
+    bit<16> urgentPtr;
+}
+
+struct metadata {
+    bit<32> index_sketch0;
+    bit<32> index_sketch1;
+    bit<32> index_sketch2;
+    
+    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch0;
+    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch1;
+    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch2;
+
+    bit<SKETCH_COUNTER_BIT_WIDTH> min_val;
+    
+}
+
+header icmp_t {
+    bit<8> type;
+    bit<8> code;
+    bit<16> checksum;
+}
+struct headers {
+    ethernet_t   ethernet;
+    ipv4_t       ipv4;
+    tcp_t        tcp;
+    icmp_t       icmp;
+}
+
+
+parser MyParser(packet_in packet,
+    out headers hdr,
+    inout metadata meta,
+    inout standard_metadata_t standard_metadata) {
+
+    state start {
+        transition parse_ethernet;
+    }
+
+    state parse_ethernet {
+
+        packet.extract(hdr.ethernet);
+        transition select(hdr.ethernet.etherType){
+            TYPE_IPV4: parse_ipv4;
+            default: accept;
+        }
+    }
+
+    state parse_ipv4 {
+        packet.extract(hdr.ipv4);
+        transition select(hdr.ipv4.protocol){
+            6 : parse_tcp;
+            1 : parse_icmp; 
+            default: accept;
+        }
+    }
+
+    state parse_tcp {
+        packet.extract(hdr.tcp);
+        transition accept;
+    }
+
+    state parse_icmp {
+        packet.extract(hdr.icmp);
+        transition accept;
+    }
+}
+
+control MyDeparser(packet_out packet, in headers hdr) {
+    apply {
+
+        packet.emit(hdr.ethernet);
+ 
+        packet.emit(hdr.ipv4);
+
+        packet.emit(hdr.tcp);
+
+        packet.emit(hdr.icmp);
+}
+}
+
+
+
+
+
+
+control MyVerifyChecksum(inout headers hdr, inout metadata meta) {
+    apply {  }
+}
+
+
+
+
+control MyIngress(inout headers hdr,
+                  inout metadata meta,
+                  inout standard_metadata_t standard_metadata) {
+
+    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch0;
+    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
+    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
+    
+    action do_sketch_count()
+    {
+        meta.min_val = 1<<15;
+
+        // Sketch 0
+        hash(meta.index_sketch0, HashAlgorithm.crc32_custom, (bit<16>)0,
+            { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
+            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            
+        sketch0.read(meta.value_sketch0, meta.index_sketch0);
+        if (meta.value_sketch0 < meta.min_val){
+            meta.min_val = meta.value_sketch0;
+        }
+
+        // Sketch 1
+
+        hash(meta.index_sketch1, HashAlgorithm.crc32_custom, (bit<16>)1,
+            { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
+            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            
+        sketch1.read(meta.value_sketch1, meta.index_sketch1);
+        
+        if (meta.value_sketch1 < meta.min_val){
+            meta.min_val = meta.value_sketch1;
+        }
+
+        // Sketch 2
+        hash(meta.index_sketch2, HashAlgorithm.crc32_custom, (bit<16>)2,
+            { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
+            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            
+        sketch2.read(meta.value_sketch2, meta.index_sketch2);
+        if (meta.value_sketch2 < meta.min_val){
+            meta.min_val = meta.value_sketch2;
+        }
+
+        if (meta.min_val == meta.value_sketch0 && meta.value_sketch0 < (SKETCH_COUNTER_MAX_COUNT )){
+            meta.value_sketch0 = meta.value_sketch0 + 1;
+            sketch0.write(meta.index_sketch0, meta.value_sketch0);
+        }
+
+        if (meta.min_val == meta.value_sketch1 && meta.value_sketch1 < (SKETCH_COUNTER_MAX_COUNT )){
+            meta.value_sketch1 = meta.value_sketch1 + 1;
+            sketch1.write(meta.index_sketch1, meta.value_sketch1);
+        }
+
+        if (meta.min_val == meta.value_sketch2 && meta.value_sketch2 < (SKETCH_COUNTER_MAX_COUNT )){
+            meta.value_sketch2 = meta.value_sketch2 + 1;
+            sketch2.write(meta.index_sketch2, meta.value_sketch2);
+        }
+
+    }
+
+    action drop() {
+        mark_to_drop(standard_metadata);
+    }
+
+    
+
+   action set_egress_port(bit<9> egress_port){
+        standard_metadata.egress_spec = egress_port;
+    }
+
+    table forwarding {
+        key = {
+            standard_metadata.ingress_port: exact;
+        }
+        actions = {
+            set_egress_port;
+            drop;
+            NoAction;
+        }
+        size = 64;
+        default_action = drop;
+    }
+
+    apply {
+
+        if (hdr.ipv4.isValid()){
+            do_sketch_count();
+        }
+
+        forwarding.apply();
+    }
+}
+
+
+control MyEgress(inout headers hdr,
+                 inout metadata meta,
+                 inout standard_metadata_t standard_metadata) {
+    apply {  }
+}
+
+
+control MyComputeChecksum(inout headers hdr, inout metadata meta) {
+     apply {
+    }
+}
+
+
+V1Switch(
+    MyParser(),
+    MyVerifyChecksum(),
+    MyIngress(),
+    MyEgress(),
+    MyComputeChecksum(),
+    MyDeparser()
+) main;
