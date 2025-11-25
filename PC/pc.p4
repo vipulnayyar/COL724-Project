@@ -13,10 +13,10 @@ typedef bit<32> ip4Addr_t;
 #define SKETCH_COUNTER_BIT_WIDTH 16
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
-#define PCM_L0_SIZE 16
-#define PCM_L1_SIZE 8
-#define PCM_L2_SIZE 4
-#define PCM_L3_SIZE 2
+#define PC_L0_SIZE 16
+#define PC_L1_SIZE 8
+#define PC_L2_SIZE 4
+#define PC_L3_SIZE 2
 
 
 header ethernet_t {
@@ -167,22 +167,22 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
     
     // ===== Row 0 =====
-    register<bit<16>>(16) pcm_l0_r0;
-    register<bit<16>>(8)  pcm_l1_r0;
-    register<bit<16>>(4)  pcm_l2_r0;
-    register<bit<16>>(2)  pcm_l3_r0;
+    register<bit<16>>(16) pc_l0_r0;
+    register<bit<16>>(8)  pc_l1_r0;
+    register<bit<16>>(4)  pc_l2_r0;
+    register<bit<16>>(2)  pc_l3_r0;
 
     // ===== Row 1 =====
-    register<bit<16>>(16) pcm_l0_r1;
-    register<bit<16>>(8)  pcm_l1_r1;
-    register<bit<16>>(4)  pcm_l2_r1;
-    register<bit<16>>(2)  pcm_l3_r1;
+    register<bit<16>>(16) pc_l0_r1;
+    register<bit<16>>(8)  pc_l1_r1;
+    register<bit<16>>(4)  pc_l2_r1;
+    register<bit<16>>(2)  pc_l3_r1;
 
     // ===== Row 2 =====
-    register<bit<16>>(16) pcm_l0_r2;
-    register<bit<16>>(8)  pcm_l1_r2;
-    register<bit<16>>(4)  pcm_l2_r2;
-    register<bit<16>>(2)  pcm_l3_r2;
+    register<bit<16>>(16) pc_l0_r2;
+    register<bit<16>>(8)  pc_l1_r2;
+    register<bit<16>>(4)  pc_l2_r2;
+    register<bit<16>>(2)  pc_l3_r2;
 
     action pc_hash() {
         bit<32> h;
@@ -206,228 +206,228 @@ control MyIngress(inout headers hdr,
     action pc_carry_r0(bit<32> idx_l0) {
         // ----- Layer 0 -----
         bit<16> v0;
-        pcm_l0_r0.read(v0, idx_l0);
+        pc_l0_r0.read(v0, idx_l0);
 
         if (v0 < 15) {
             if(meta.sign0 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l0_r0.write(idx_l0, v0 + 1);
+                pc_l0_r0.write(idx_l0, v0 + 1);
             }
             else if(meta.sign0 == 1 && v0 > 0){
-                pcm_l0_r0.write(idx_l0, v0 - 1);
+                pc_l0_r0.write(idx_l0, v0 - 1);
             }
             
             return;
         }
 
         // overflow
-        pcm_l0_r0.write(idx_l0, 0);
+        pc_l0_r0.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
         bit<16> v1;
-        pcm_l1_r0.read(v1, idx_l1);
+        pc_l1_r0.read(v1, idx_l1);
 
         if (v1 < 15) {
             if(meta.sign0 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l1_r0.write(idx_l1, v1 + 1);
+                pc_l1_r0.write(idx_l1, v1 + 1);
             }
             else if(meta.sign0 == 1 && v1 > 0){
-                pcm_l1_r0.write(idx_l1, v1 - 1);
+                pc_l1_r0.write(idx_l1, v1 - 1);
             }
 
             return;
         }
 
-        pcm_l1_r0.write(idx_l1, 0);
+        pc_l1_r0.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
         bit<16> v2;
-        pcm_l2_r0.read(v2, idx_l2);
+        pc_l2_r0.read(v2, idx_l2);
 
         if (v2 < 15) {
 
             if(meta.sign0 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l2_r0.write(idx_l2, v2 + 1);
+                pc_l2_r0.write(idx_l2, v2 + 1);
             }
             else if(meta.sign0 == 1 && v2 > 0){
-                pcm_l2_r0.write(idx_l2, v2 - 1);
+                pc_l2_r0.write(idx_l2, v2 - 1);
             }
             
             
             return;
         }
 
-        pcm_l2_r0.write(idx_l2, 0);
+        pc_l2_r0.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
         // ----- Layer 3 -----
         bit<16> v3;
-        pcm_l3_r0.read(v3, idx_l3);
+        pc_l3_r0.read(v3, idx_l3);
 
         if (v3 < 15) {
 
             if(meta.sign0 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l3_r0.write(idx_l2, v3 + 1);
+                pc_l3_r0.write(idx_l2, v3 + 1);
             }
             else if(meta.sign0 == 1 && v3 > 0){
-                pcm_l3_r0.write(idx_l2, v3 - 1);
+                pc_l3_r0.write(idx_l2, v3 - 1);
             }
 
             return;
         }
 
         // top overflow → saturate
-        pcm_l3_r0.write(idx_l3, 15);
+        pc_l3_r0.write(idx_l3, 15);
         
     }
 
     action pc_carry_r1(bit<32> idx_l0) {
         // ----- Layer 0 -----
         bit<16> v0;
-        pcm_l0_r1.read(v0, idx_l0);
+        pc_l0_r1.read(v0, idx_l0);
 
         if (v0 < 15) {
             if(meta.sign1 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l0_r1.write(idx_l0, v0 + 1);
+                pc_l0_r1.write(idx_l0, v0 + 1);
             }
             else if(meta.sign1 == 1 && v0 > 0){
-                pcm_l0_r1.write(idx_l0, v0 - 1);
+                pc_l0_r1.write(idx_l0, v0 - 1);
             }
 
             return;
         }
 
-        pcm_l0_r1.write(idx_l0, 0);
+        pc_l0_r1.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
         bit<16> v1;
-        pcm_l1_r1.read(v1, idx_l1);
+        pc_l1_r1.read(v1, idx_l1);
 
         if (v1 < 15) {
             if(meta.sign1 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l1_r1.write(idx_l1, v1 + 1);
+                pc_l1_r1.write(idx_l1, v1 + 1);
             }
             else if(meta.sign1 == 1 && v1 > 0){
-                pcm_l1_r1.write(idx_l1, v1 - 1);
+                pc_l1_r1.write(idx_l1, v1 - 1);
             }
 
             return;
         }
 
-        pcm_l1_r1.write(idx_l1, 0);
+        pc_l1_r1.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
         bit<16> v2;
-        pcm_l2_r1.read(v2, idx_l2);
+        pc_l2_r1.read(v2, idx_l2);
 
         if (v2 < 15) {
             if(meta.sign1 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l2_r1.write(idx_l2, v2 + 1);
+                pc_l2_r1.write(idx_l2, v2 + 1);
             }
             else if(meta.sign1 == 1 && v2 > 0){
-                pcm_l2_r1.write(idx_l2, v2 - 1);
+                pc_l2_r1.write(idx_l2, v2 - 1);
             }
 
             return;
         }
 
-        pcm_l2_r1.write(idx_l2, 0);
+        pc_l2_r1.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
         // ----- Layer 3 -----
         bit<16> v3;
-        pcm_l3_r1.read(v3, idx_l3);
+        pc_l3_r1.read(v3, idx_l3);
 
         if (v3 < 15) {
             if(meta.sign1 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l3_r1.write(idx_l3, v3 + 1);
+                pc_l3_r1.write(idx_l3, v3 + 1);
             }
             else if(meta.sign1 == 1 && v3 > 0){
-                pcm_l3_r1.write(idx_l3, v3 - 1);
+                pc_l3_r1.write(idx_l3, v3 - 1);
             }
 
             return;
         }
 
-        pcm_l3_r1.write(idx_l3, 15);
+        pc_l3_r1.write(idx_l3, 15);
     }
 
     action pc_carry_r2(bit<32> idx_l0) {
         // ----- Layer 0 -----
         bit<16> v0;
-        pcm_l0_r2.read(v0, idx_l0);
+        pc_l0_r2.read(v0, idx_l0);
 
         if (v0 < 15) {
             if(meta.sign2 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l0_r2.write(idx_l0, v0 + 1);
+                pc_l0_r2.write(idx_l0, v0 + 1);
             }
             else if(meta.sign2 == 1 && v0 > 0){
-                pcm_l0_r2.write(idx_l0, v0 - 1);
+                pc_l0_r2.write(idx_l0, v0 - 1);
             }
 
             return;
         }
     
 
-        pcm_l0_r2.write(idx_l0, 0);
+        pc_l0_r2.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
         bit<16> v1;
-        pcm_l1_r2.read(v1, idx_l1);
+        pc_l1_r2.read(v1, idx_l1);
 
         if (v1 < 15) {
             if(meta.sign2 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l1_r2.write(idx_l1, v1 + 1);
+                pc_l1_r2.write(idx_l1, v1 + 1);
             }
             else if(meta.sign2 == 1 && v1 > 0){
-                pcm_l1_r2.write(idx_l1, v1 - 1);
+                pc_l1_r2.write(idx_l1, v1 - 1);
             }
 
             return;
         }
 
-        pcm_l1_r2.write(idx_l1, 0);
+        pc_l1_r2.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
         bit<16> v2;
-        pcm_l2_r2.read(v2, idx_l2);
+        pc_l2_r2.read(v2, idx_l2);
 
         if (v2 < 15) {
             if(meta.sign2 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l2_r2.write(idx_l2, v2 + 1);
+                pc_l2_r2.write(idx_l2, v2 + 1);
             }
             else if(meta.sign2 == 1 && v2 > 0){
-                pcm_l2_r2.write(idx_l2, v2 - 1);
+                pc_l2_r2.write(idx_l2, v2 - 1);
             }
 
             return;
         }
 
-        pcm_l2_r2.write(idx_l2, 0);
+        pc_l2_r2.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
 
         // ----- Layer 3 -----
         bit<16> v3;
-        pcm_l3_r2.read(v3, idx_l3);
+        pc_l3_r2.read(v3, idx_l3);
 
         if (v3 < 15) {
             if(meta.sign2 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pcm_l3_r2.write(idx_l3, v3 + 1);
+                pc_l3_r2.write(idx_l3, v3 + 1);
             }
             else if(meta.sign2 == 1 && v3 > 0){
-                pcm_l3_r2.write(idx_l3, v3 - 1);
+                pc_l3_r2.write(idx_l3, v3 - 1);
             }
 
             return;
         }
 
-        pcm_l3_r2.write(idx_l3, 15);
+        pc_l3_r2.write(idx_l3, 15);
     }
 
     action drop() {

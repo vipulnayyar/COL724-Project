@@ -1,0 +1,5922 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["tmp", 32, false],
+        ["tmp_0", 32, false],
+        ["tmp_1", 16, false],
+        ["tmp_2", 16, false],
+        ["tmp_3", 8, false],
+        ["tmp_4", 32, false],
+        ["tmp_5", 32, false],
+        ["tmp_6", 16, false],
+        ["tmp_7", 16, false],
+        ["tmp_8", 8, false],
+        ["tmp_9", 32, false],
+        ["tmp_10", 32, false],
+        ["tmp_11", 16, false],
+        ["tmp_12", 16, false],
+        ["tmp_13", 8, false],
+        ["tmp_14", 32, false],
+        ["tmp_15", 32, false],
+        ["tmp_16", 16, false],
+        ["tmp_17", 16, false],
+        ["tmp_18", 8, false],
+        ["tmp_19", 16, false],
+        ["tmp_20", 32, false],
+        ["tmp_21", 32, false],
+        ["tmp_22", 16, false],
+        ["tmp_23", 32, false],
+        ["tmp_24", 32, false],
+        ["tmp_25", 32, false],
+        ["tmp_26", 16, false],
+        ["tmp_27", 32, false],
+        ["tmp_28", 32, false],
+        ["tmp_29", 32, false],
+        ["tmp_30", 16, false],
+        ["tmp_31", 32, false],
+        ["tmp_32", 16, false],
+        ["tmp_33", 32, false],
+        ["tmp_34", 32, false],
+        ["tmp_35", 16, false],
+        ["tmp_36", 32, false],
+        ["tmp_37", 32, false],
+        ["tmp_38", 32, false],
+        ["tmp_39", 16, false],
+        ["tmp_40", 32, false],
+        ["tmp_41", 32, false],
+        ["tmp_42", 32, false],
+        ["tmp_43", 16, false],
+        ["tmp_44", 32, false],
+        ["tmp_45", 16, false],
+        ["tmp_46", 32, false],
+        ["tmp_47", 32, false],
+        ["tmp_48", 16, false],
+        ["tmp_49", 32, false],
+        ["tmp_50", 32, false],
+        ["tmp_51", 32, false],
+        ["tmp_52", 16, false],
+        ["tmp_53", 32, false],
+        ["tmp_54", 32, false],
+        ["tmp_55", 32, false],
+        ["tmp_56", 16, false],
+        ["tmp_57", 32, false],
+        ["v0_0", 16, false],
+        ["v1_0", 16, false],
+        ["v2_0", 16, false],
+        ["v3_0", 16, false],
+        ["v0_1", 16, false],
+        ["v1_1", 16, false],
+        ["v2_1", 16, false],
+        ["v3_1", 16, false],
+        ["v0_2", 16, false],
+        ["v1_2", 16, false],
+        ["v2_2", 16, false],
+        ["v3_2", 16, false],
+        ["found_0", 1, false],
+        ["placed_0", 1, false],
+        ["metadata.index_sketch0", 32, false],
+        ["metadata.index_sketch1", 32, false],
+        ["metadata.index_sketch2", 32, false],
+        ["metadata.value_sketch0", 16, false],
+        ["metadata.value_sketch1", 16, false],
+        ["metadata.value_sketch2", 16, false],
+        ["metadata.idx0", 32, false],
+        ["metadata.idx1", 32, false],
+        ["metadata.idx2", 32, false],
+        ["metadata.flow_hash", 32, false],
+        ["metadata.filter_key0", 32, false],
+        ["metadata.filter_count0", 16, false],
+        ["metadata.filter_key1", 32, false],
+        ["metadata.filter_count1", 16, false],
+        ["metadata.filter_key2", 32, false],
+        ["metadata.filter_count2", 16, false],
+        ["_padding_0", 6, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["instance_type", 32, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["mcast_grp", 16, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["parser_error", 32, false],
+        ["priority", 3, false],
+        ["_padding", 3, false]
+      ]
+    },
+    {
+      "name" : "ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dstAddr", 48, false],
+        ["srcAddr", 48, false],
+        ["etherType", 16, false]
+      ]
+    },
+    {
+      "name" : "ipv4_t",
+      "id" : 3,
+      "fields" : [
+        ["version", 4, false],
+        ["ihl", 4, false],
+        ["dscp", 6, false],
+        ["ecn", 2, false],
+        ["totalLen", 16, false],
+        ["identification", 16, false],
+        ["flags", 3, false],
+        ["fragOffset", 13, false],
+        ["ttl", 8, false],
+        ["protocol", 8, false],
+        ["hdrChecksum", 16, false],
+        ["srcAddr", 32, false],
+        ["dstAddr", 32, false]
+      ]
+    },
+    {
+      "name" : "tcp_t",
+      "id" : 4,
+      "fields" : [
+        ["srcPort", 16, false],
+        ["dstPort", 16, false],
+        ["seqNo", 32, false],
+        ["ackNo", 32, false],
+        ["dataOffset", 4, false],
+        ["res", 4, false],
+        ["cwr", 1, false],
+        ["ece", 1, false],
+        ["urg", 1, false],
+        ["ack", 1, false],
+        ["psh", 1, false],
+        ["rst", 1, false],
+        ["syn", 1, false],
+        ["fin", 1, false],
+        ["window", 16, false],
+        ["checksum", 16, false],
+        ["urgentPtr", 16, false]
+      ]
+    },
+    {
+      "name" : "icmp_t",
+      "id" : 5,
+      "fields" : [
+        ["type", 8, false],
+        ["code", 8, false],
+        ["checksum", 16, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ipv4",
+      "id" : 3,
+      "header_type" : "ipv4_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "tcp",
+      "id" : 4,
+      "header_type" : "tcp_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "icmp",
+      "id" : 5,
+      "header_type" : "icmp_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [],
+  "errors" : [
+    ["NoError", 0],
+    ["PacketTooShort", 1],
+    ["NoMatch", 2],
+    ["StackOutOfBounds", 3],
+    ["HeaderTooShort", 4],
+    ["ParserTimeout", 5],
+    ["ParserInvalidArgument", 6]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "etherType"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_ipv4",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ipv4"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x06",
+              "mask" : null,
+              "next_state" : "parse_tcp"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01",
+              "mask" : null,
+              "next_state" : "parse_icmp"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_tcp",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "tcp"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_icmp",
+          "id" : 3,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "icmp"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 142,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "order" : ["ethernet", "ipv4", "tcp", "icmp"],
+      "primitives" : []
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [],
+  "register_arrays" : [
+    {
+      "name" : "MyIngress.sketch0",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 171,
+        "column" : 26,
+        "source_fragment" : "sketch0"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.sketch1",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 172,
+        "column" : 26,
+        "source_fragment" : "sketch1"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.sketch2",
+      "id" : 2,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 173,
+        "column" : 26,
+        "source_fragment" : "sketch2"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l0_r0",
+      "id" : 3,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 176,
+        "column" : 26,
+        "source_fragment" : "pa_l0_r0"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l1_r0",
+      "id" : 4,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 177,
+        "column" : 25,
+        "source_fragment" : "pa_l1_r0"
+      },
+      "size" : 8,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l2_r0",
+      "id" : 5,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 178,
+        "column" : 25,
+        "source_fragment" : "pa_l2_r0"
+      },
+      "size" : 4,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l3_r0",
+      "id" : 6,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 179,
+        "column" : 25,
+        "source_fragment" : "pa_l3_r0"
+      },
+      "size" : 2,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l0_r1",
+      "id" : 7,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 182,
+        "column" : 26,
+        "source_fragment" : "pa_l0_r1"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l1_r1",
+      "id" : 8,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 183,
+        "column" : 25,
+        "source_fragment" : "pa_l1_r1"
+      },
+      "size" : 8,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l2_r1",
+      "id" : 9,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 184,
+        "column" : 25,
+        "source_fragment" : "pa_l2_r1"
+      },
+      "size" : 4,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l3_r1",
+      "id" : 10,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 185,
+        "column" : 25,
+        "source_fragment" : "pa_l3_r1"
+      },
+      "size" : 2,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l0_r2",
+      "id" : 11,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 188,
+        "column" : 26,
+        "source_fragment" : "pa_l0_r2"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l1_r2",
+      "id" : 12,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 189,
+        "column" : 25,
+        "source_fragment" : "pa_l1_r2"
+      },
+      "size" : 8,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l2_r2",
+      "id" : 13,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 190,
+        "column" : 25,
+        "source_fragment" : "pa_l2_r2"
+      },
+      "size" : 4,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.pa_l3_r2",
+      "id" : 14,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 191,
+        "column" : 25,
+        "source_fragment" : "pa_l3_r2"
+      },
+      "size" : 2,
+      "bitwidth" : 16
+    }
+  ],
+  "calculations" : [
+    {
+      "name" : "calc",
+      "id" : 0,
+      "algo" : "crc32",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_0"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_1"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_2"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_3"]
+        }
+      ]
+    },
+    {
+      "name" : "calc_0",
+      "id" : 1,
+      "algo" : "crc32",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_4"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_5"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_6"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_7"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_8"]
+        }
+      ]
+    },
+    {
+      "name" : "calc_1",
+      "id" : 2,
+      "algo" : "crc32",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_9"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_10"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_11"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_12"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_13"]
+        }
+      ]
+    },
+    {
+      "name" : "calc_2",
+      "id" : 3,
+      "algo" : "crc32",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_14"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_15"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_16"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_17"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_18"]
+        }
+      ]
+    }
+  ],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.drop",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 419,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.set_egress_port",
+      "id" : 2,
+      "runtime_data" : [
+        {
+          "name" : "egress_port",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 425,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = egress_port"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.pa_insert",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 209,
+            "column" : 14,
+            "source_fragment" : "hdr.ipv4.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_0"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 210,
+            "column" : 12,
+            "source_fragment" : "hdr.ipv4.dstAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_1"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "srcPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 211,
+            "column" : 12,
+            "source_fragment" : "hdr.tcp.srcPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_2"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "dstPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 212,
+            "column" : 12,
+            "source_fragment" : "hdr.tcp.dstPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_3"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 213,
+            "column" : 12,
+            "source_fragment" : "hdr.ipv4.protocol"
+          }
+        },
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000020"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 206,
+            "column" : 8,
+            "source_fragment" : "hash(meta.flow_hash, ..."
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_4"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 59,
+            "source_fragment" : "hdr.ipv4.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_5"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 77,
+            "source_fragment" : "hdr.ipv4.dstAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_6"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "srcPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 95,
+            "source_fragment" : "hdr.tcp.srcPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_7"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "dstPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 112,
+            "source_fragment" : "hdr.tcp.dstPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_8"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 129,
+            "source_fragment" : "hdr.ipv4.protocol"
+          }
+        },
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc_0"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000010"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 196,
+            "column" : 8,
+            "source_fragment" : "hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_9"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 59,
+            "source_fragment" : "hdr.ipv4.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_10"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 77,
+            "source_fragment" : "hdr.ipv4.dstAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_11"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "srcPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 95,
+            "source_fragment" : "hdr.tcp.srcPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_12"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "dstPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 112,
+            "source_fragment" : "hdr.tcp.dstPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_13"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 129,
+            "source_fragment" : "hdr.ipv4.protocol"
+          }
+        },
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx1"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000001"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc_1"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000010"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 198,
+            "column" : 8,
+            "source_fragment" : "hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_14"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 59,
+            "source_fragment" : "hdr.ipv4.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_15"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 77,
+            "source_fragment" : "hdr.ipv4.dstAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_16"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "srcPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 95,
+            "source_fragment" : "hdr.tcp.srcPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_17"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "dstPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 112,
+            "source_fragment" : "hdr.tcp.dstPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_18"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 129,
+            "source_fragment" : "hdr.ipv4.protocol"
+          }
+        },
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx2"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000002"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc_2"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000010"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 200,
+            "column" : 8,
+            "source_fragment" : "hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "found_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 442,
+            "column" : 8,
+            "source_fragment" : "bit<1> found = 0"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "placed_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 443,
+            "column" : 8,
+            "source_fragment" : "bit<1> placed = 0"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 448,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key0"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.flow_hash"]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x1e"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 449,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x1d"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count0"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 450,
+            "column" : 16,
+            "source_fragment" : "meta.filter_count0 = meta.filter_count0 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "found_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 452,
+            "column" : 12,
+            "source_fragment" : "found = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 456,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "!=",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "found_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x23"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 457,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key1"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.flow_hash"]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x23"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 458,
+            "column" : 16,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x22"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count1"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 459,
+            "column" : 20,
+            "source_fragment" : "meta.filter_count1 = meta.filter_count1 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "found_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 461,
+            "column" : 16,
+            "source_fragment" : "found = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 466,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "!=",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "found_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x28"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 467,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key2"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.flow_hash"]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x28"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 468,
+            "column" : 16,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x27"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count2"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 469,
+            "column" : 20,
+            "source_fragment" : "meta.filter_count2 = meta.filter_count2 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "found_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 471,
+            "column" : 16,
+            "source_fragment" : "found = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 480,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "!=",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "found_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x32"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 481,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000000"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x2c"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count0"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 482,
+            "column" : 16,
+            "source_fragment" : "meta.filter_count0 = meta.filter_count0 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "placed_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 483,
+            "column" : 16,
+            "source_fragment" : "placed = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 486,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000000"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x2f"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count1"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 487,
+            "column" : 16,
+            "source_fragment" : "meta.filter_count1 = meta.filter_count1 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "placed_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 488,
+            "column" : 16,
+            "source_fragment" : "placed = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 491,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "==",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_key2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x00000000"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x32"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.filter_count2"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.filter_count2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 492,
+            "column" : 16,
+            "source_fragment" : "meta.filter_count2 = meta.filter_count2 + 1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "placed_0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 493,
+            "column" : 16,
+            "source_fragment" : "placed = 1"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 501,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "and",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "!=",
+                          "left" : {
+                            "type" : "field",
+                            "value" : ["scalars", "found_0"]
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x01"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "!=",
+                          "left" : {
+                            "type" : "field",
+                            "value" : ["scalars", "placed_0"]
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x01"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0xa2"
+            }
+          ]
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v0_0"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx0"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 221,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r0.read(v0, idx_l0)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 223,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x39"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 224,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x38"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_19"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 225,
+            "column" : 41,
+            "source_fragment" : "v0 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx0"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_19"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 225,
+            "column" : 18,
+            "source_fragment" : "pa_l0_r0.write(idx_l0, v0 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 223,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x58"
+            }
+          ]
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx0"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 232,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r0.write(idx_l0, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_20"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 237,
+            "column" : 26,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v1_0"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_20"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 237,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r0.read(v1, idx_l1)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 239,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x42"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 240,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x41"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_21"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 241,
+            "column" : 33,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_22"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 241,
+            "column" : 41,
+            "source_fragment" : "v1 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_21"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_22"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 241,
+            "column" : 18,
+            "source_fragment" : "pa_l1_r0.write(idx_l1, v1 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 239,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x58"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_23"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 248,
+            "column" : 23,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_23"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 248,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r0.write(idx_l1, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_24"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 253,
+            "column" : 26,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v2_0"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_24"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 253,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r0.read(v2, idx_l2)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 255,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x4c"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 257,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x4b"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_25"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 258,
+            "column" : 33,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_26"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 258,
+            "column" : 41,
+            "source_fragment" : "v2 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_25"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_26"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 258,
+            "column" : 18,
+            "source_fragment" : "pa_l2_r0.write(idx_l2, v2 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 255,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x58"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_27"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 266,
+            "column" : 23,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_27"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 266,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r0.write(idx_l2, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_28"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 271,
+            "column" : 26,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v3_0"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_28"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 271,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r0.read(v3, idx_l3)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 273,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x56"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 275,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x55"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_29"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 276,
+            "column" : 33,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_30"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 276,
+            "column" : 41,
+            "source_fragment" : "v3 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_29"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_30"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 276,
+            "column" : 18,
+            "source_fragment" : "pa_l3_r0.write(idx_l2, v3 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 273,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x58"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_31"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx0"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 284,
+            "column" : 23,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_31"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x000f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 284,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r0.write(idx_l3, 15)"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v0_1"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx1"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 291,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r1.read(v0, idx_l0)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 293,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x5e"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 294,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x5d"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_32"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 295,
+            "column" : 41,
+            "source_fragment" : "v0 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx1"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_32"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 295,
+            "column" : 18,
+            "source_fragment" : "pa_l0_r1.write(idx_l0, v0 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 293,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x7d"
+            }
+          ]
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx1"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 302,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r1.write(idx_l0, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_33"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 307,
+            "column" : 26,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v1_1"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_33"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 307,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r1.read(v1, idx_l1)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 309,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x67"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 310,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x66"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_34"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 311,
+            "column" : 33,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_35"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 311,
+            "column" : 41,
+            "source_fragment" : "v1 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_34"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_35"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 311,
+            "column" : 18,
+            "source_fragment" : "pa_l1_r1.write(idx_l1, v1 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 309,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x7d"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_36"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 317,
+            "column" : 23,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_36"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 317,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r1.write(idx_l1, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_37"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 322,
+            "column" : 26,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v2_1"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_37"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 322,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r1.read(v2, idx_l2)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 324,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x71"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 325,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x70"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_38"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 326,
+            "column" : 33,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_39"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 326,
+            "column" : 41,
+            "source_fragment" : "v2 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_38"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_39"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 326,
+            "column" : 18,
+            "source_fragment" : "pa_l2_r1.write(idx_l2, v2 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 324,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x7d"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_40"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 333,
+            "column" : 23,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_40"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 333,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r1.write(idx_l2, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_41"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 338,
+            "column" : 26,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v3_1"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_41"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 338,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r1.read(v3, idx_l3)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 340,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x7b"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 341,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x7a"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_42"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 342,
+            "column" : 33,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_43"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 342,
+            "column" : 41,
+            "source_fragment" : "v3 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_42"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_43"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 342,
+            "column" : 18,
+            "source_fragment" : "pa_l3_r1.write(idx_l3, v3 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 340,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x7d"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_44"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx1"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 349,
+            "column" : 23,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_44"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x000f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 349,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r1.write(idx_l3, 15)"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v0_2"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx2"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 355,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r2.read(v0, idx_l0)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 357,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x83"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 358,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x82"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_45"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v0_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 359,
+            "column" : 41,
+            "source_fragment" : "v0 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx2"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_45"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 359,
+            "column" : 18,
+            "source_fragment" : "pa_l0_r2.write(idx_l0, v0 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 357,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0xa2"
+            }
+          ]
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l0_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.idx2"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 366,
+            "column" : 8,
+            "source_fragment" : "pa_l0_r2.write(idx_l0, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_46"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 371,
+            "column" : 26,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v1_2"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_46"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 371,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r2.read(v1, idx_l1)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 373,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x8c"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 374,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x8b"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_47"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 375,
+            "column" : 33,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_48"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v1_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 375,
+            "column" : 41,
+            "source_fragment" : "v1 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_47"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_48"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 375,
+            "column" : 18,
+            "source_fragment" : "pa_l1_r2.write(idx_l1, v1 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 373,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0xa2"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_49"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 382,
+            "column" : 23,
+            "source_fragment" : "idx_l1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l1_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_49"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 382,
+            "column" : 8,
+            "source_fragment" : "pa_l1_r2.write(idx_l1, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_50"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 387,
+            "column" : 26,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v2_2"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_50"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 387,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r2.read(v2, idx_l2)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 389,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x96"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 390,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x95"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_51"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 391,
+            "column" : 33,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_52"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v2_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 391,
+            "column" : 41,
+            "source_fragment" : "v2 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_51"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_52"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 391,
+            "column" : 18,
+            "source_fragment" : "pa_l2_r2.write(idx_l2, v2 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 389,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0xa2"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_53"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 398,
+            "column" : 23,
+            "source_fragment" : "idx_l2"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l2_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_53"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 398,
+            "column" : 8,
+            "source_fragment" : "pa_l2_r2.write(idx_l2, 0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_54"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 404,
+            "column" : 26,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "v3_2"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_54"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 404,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r2.read(v3, idx_l3)"
+          }
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 406,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x000f"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0xa0"
+            }
+          ]
+        },
+        {
+          "op" : "_jump_if_zero",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 407,
+            "column" : 12,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x9f"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_55"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 408,
+            "column" : 33,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_56"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "v3_2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0001"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 408,
+            "column" : 41,
+            "source_fragment" : "v3 + 1"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_55"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_56"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 408,
+            "column" : 18,
+            "source_fragment" : "pa_l3_r2.write(idx_l3, v3 + 1)"
+          }
+        },
+        {
+          "op" : "_jump",
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 406,
+            "column" : 8,
+            "source_fragment" : "if"
+          },
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0xa2"
+            }
+          ]
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_57"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : ">>",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.idx2"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x3"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 415,
+            "column" : 23,
+            "source_fragment" : "idx_l3"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.pa_l3_r2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_57"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x000f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 415,
+            "column" : 8,
+            "source_fragment" : "pa_l3_r2.write(idx_l3, 15)"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 167,
+        "column" : 8,
+        "source_fragment" : "MyIngress"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "tbl_pa_insert",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 521,
+            "column" : 12,
+            "source_fragment" : "pa_insert()"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [3],
+          "actions" : ["MyIngress.pa_insert"],
+          "base_default_next" : "MyIngress.forwarding",
+          "next_tables" : {
+            "MyIngress.pa_insert" : "MyIngress.forwarding"
+          },
+          "default_entry" : {
+            "action_id" : 3,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "MyIngress.forwarding",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 428,
+            "column" : 10,
+            "source_fragment" : "forwarding"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "standard_metadata.ingress_port",
+              "target" : ["standard_metadata", "ingress_port"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 64,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [2, 1, 0],
+          "actions" : ["MyIngress.set_egress_port", "MyIngress.drop", "NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyIngress.set_egress_port" : null,
+            "MyIngress.drop" : null,
+            "NoAction" : null
+          },
+          "default_entry" : {
+            "action_id" : 1,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "pa.p4",
+            "line" : 520,
+            "column" : 12,
+            "source_fragment" : "hdr.ipv4.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["ipv4", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "tbl_pa_insert",
+          "false_next" : "MyIngress.forwarding"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "pa.p4",
+        "line" : 529,
+        "column" : 8,
+        "source_fragment" : "MyEgress"
+      },
+      "init_table" : null,
+      "tables" : [],
+      "action_profiles" : [],
+      "conditionals" : []
+    }
+  ],
+  "checksums" : [],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.priority",
+      ["standard_metadata", "priority"]
+    ]
+  ],
+  "program" : "pa.p4",
+  "__meta__" : {
+    "version" : [2, 23],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}

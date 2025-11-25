@@ -1,0 +1,293 @@
+# proto-file: p4/config/v1/p4info.proto
+# proto-message: p4.config.v1.P4Info
+
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 38687552
+    name: "MyIngress.forwarding"
+    alias: "forwarding"
+  }
+  match_fields {
+    id: 1
+    name: "standard_metadata.ingress_port"
+    bitwidth: 9
+    match_type: EXACT
+  }
+  action_refs {
+    id: 27787745
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  initial_default_action {
+    action_id: 25652968
+  }
+  size: 64
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 27787745
+    name: "MyIngress.set_egress_port"
+    alias: "set_egress_port"
+  }
+  params {
+    id: 1
+    name: "egress_port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 16852375
+    name: "MyIngress.pc_insert"
+    alias: "pc_insert"
+  }
+}
+registers {
+  preamble {
+    id: 380561080
+    name: "MyIngress.sketch0"
+    alias: "sketch0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 376504893
+    name: "MyIngress.sketch1"
+    alias: "sketch1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 373698023
+    name: "MyIngress.sketch2"
+    alias: "sketch2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 375860242
+    name: "MyIngress.pcm_l0_r0"
+    alias: "pcm_l0_r0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 376224082
+    name: "MyIngress.pcm_l1_r0"
+    alias: "pcm_l1_r0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 8
+}
+registers {
+  preamble {
+    id: 371206609
+    name: "MyIngress.pcm_l2_r0"
+    alias: "pcm_l2_r0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 4
+}
+registers {
+  preamble {
+    id: 384040222
+    name: "MyIngress.pcm_l3_r0"
+    alias: "pcm_l3_r0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 2
+}
+registers {
+  preamble {
+    id: 376295994
+    name: "MyIngress.pcm_l0_r1"
+    alias: "pcm_l0_r1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 372382429
+    name: "MyIngress.pcm_l1_r1"
+    alias: "pcm_l1_r1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 8
+}
+registers {
+  preamble {
+    id: 382394150
+    name: "MyIngress.pcm_l2_r1"
+    alias: "pcm_l2_r1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 4
+}
+registers {
+  preamble {
+    id: 376696379
+    name: "MyIngress.pcm_l3_r1"
+    alias: "pcm_l3_r1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 2
+}
+registers {
+  preamble {
+    id: 372228030
+    name: "MyIngress.pcm_l0_r2"
+    alias: "pcm_l0_r2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 384942175
+    name: "MyIngress.pcm_l1_r2"
+    alias: "pcm_l1_r2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 8
+}
+registers {
+  preamble {
+    id: 375159881
+    name: "MyIngress.pcm_l2_r2"
+    alias: "pcm_l2_r2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 4
+}
+registers {
+  preamble {
+    id: 371032975
+    name: "MyIngress.pcm_l3_r2"
+    alias: "pcm_l3_r2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 2
+}
+type_info {
+}
