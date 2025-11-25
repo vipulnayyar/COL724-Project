@@ -9,3 +9,12 @@
 h1 - s1 = s0 = s2 - h2
 ```
 Their are two links between switches s0 and s1, and between s0 and s2. h1 and h2 are two hosts.
+
+
+
+## References
+
+- https://github.com/p4lang/tutorials
+- https://github.com/zhouyangpkuer/Pyramid_Sketch_Framework/
+- https://github.com/p4lang/tutorials/blob/master/vm-ubuntu-24.04/README.md
+- https://git.lyczak.net/NetSys/
