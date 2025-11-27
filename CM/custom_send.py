@@ -45,11 +45,12 @@ def main():
                 source_port = source_port_count
                 source_port_count += 1
             
-            for _ in range(int(row[2])): 
-                pkt =  Ether(src=get_if_hwaddr(iface), dst='ff:ff:ff:ff:ff:ff')
-                pkt = pkt /IP(dst=addr) / TCP(dport=1234, sport=source_port) / "HELLO"
-                #pkt.show2()
-                sendp(pkt, iface=iface, verbose=False)
+            print(f"Sending {int(row[2])} packets from {source_port} to {addr}")
+            #for _ in range(int(row[2])): 
+            pkt =  Ether(src=get_if_hwaddr(iface), dst='ff:ff:ff:ff:ff:ff')
+            pkt = pkt /IP(dst=addr) / TCP(dport=1234, sport=source_port) / "HELLO"
+            #pkt.show2()
+            sendp(pkt, iface=iface, verbose=False, count=(int(row[2])))
 
 
 if __name__ == '__main__':
