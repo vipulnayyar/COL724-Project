@@ -73,6 +73,7 @@ struct metadata {
     bit<32> idx0;
     bit<32> idx1;
     bit<32> idx2;
+    bit<32> insertion_count;
     
 }
 
@@ -161,39 +162,46 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
     
     // ===== Row 0 =====
-    register<bit<16>>(16) pcm_l0_r0;
-    register<bit<16>>(8)  pcm_l1_r0;
-    register<bit<16>>(4)  pcm_l2_r0;
-    register<bit<16>>(2)  pcm_l3_r0;
+    register<bit<10>>(8)  pcm_l0_r0;
+    register<bit<10>>(4)  pcm_l1_r0;
+    register<bit<10>>(2)  pcm_l2_r0;
 
     // ===== Row 1 =====
-    register<bit<16>>(16) pcm_l0_r1;
-    register<bit<16>>(8)  pcm_l1_r1;
-    register<bit<16>>(4)  pcm_l2_r1;
-    register<bit<16>>(2)  pcm_l3_r1;
+    register<bit<10>>(8)  pcm_l0_r1;
+    register<bit<10>>(4)  pcm_l1_r1;
+    register<bit<10>>(2)  pcm_l2_r1;
 
     // ===== Row 2 =====
-    register<bit<16>>(16) pcm_l0_r2;
-    register<bit<16>>(8)  pcm_l1_r2;
-    register<bit<16>>(4)  pcm_l2_r2;
-    register<bit<16>>(2)  pcm_l3_r2;
+    register<bit<10>>(8)  pcm_l0_r2;
+    register<bit<10>>(4)  pcm_l1_r2;
+    register<bit<10>>(2)  pcm_l2_r2;
+
+
+    register<bit<32>>(1) insert_request_count;
+
+
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
 
     action pcm_hash() {
         bit<32> h;
 
-        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)10);
 
-        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)10);
 
-        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)10);
     } 
 
     action pcm_carry_r0(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pcm_l0_r0.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             pcm_l0_r0.write(idx_l0, v0 + 1);
             return;
         }
@@ -203,10 +211,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pcm_l1_r0.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             pcm_l1_r0.write(idx_l1, v1 + 1);
             return;
         }
@@ -215,10 +223,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pcm_l2_r0.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             pcm_l2_r0.write(idx_l2, v2 + 1);
             return;
         }
@@ -226,22 +234,12 @@ control MyIngress(inout headers hdr,
         pcm_l2_r0.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pcm_l3_r0.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            pcm_l3_r0.write(idx_l3, v3 + 1);
-            return;
-        }
-
-        // top overflow → saturate
-        pcm_l3_r0.write(idx_l3, 15);
+        
         
     }
 
     action pcm_carry_r1(bit<32> idx_l0) {
-        bit<16> v0;
+        bit<10> v0;
         pcm_l0_r1.read(v0, idx_l0);
     
         if (v0 < 15) {
@@ -252,7 +250,7 @@ control MyIngress(inout headers hdr,
         pcm_l0_r1.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
     
-        bit<16> v1;
+        bit<10> v1;
         pcm_l1_r1.read(v1, idx_l1);
     
         if (v1 < 15) {
@@ -263,7 +261,7 @@ control MyIngress(inout headers hdr,
         pcm_l1_r1.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
     
-        bit<16> v2;
+        bit<10> v2;
         pcm_l2_r1.read(v2, idx_l2);
     
         if (v2 < 15) {
@@ -272,21 +270,11 @@ control MyIngress(inout headers hdr,
         }
     
         pcm_l2_r1.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-    
-        bit<16> v3;
-        pcm_l3_r1.read(v3, idx_l3);
-    
-        if (v3 < 15) {
-            pcm_l3_r1.write(idx_l3, v3 + 1);
-            return;
-        }
-    
-        pcm_l3_r1.write(idx_l3, 15);
+        
     }
 
     action pcm_carry_r2(bit<32> idx_l0) {
-        bit<16> v0;
+        bit<10> v0;
         pcm_l0_r2.read(v0, idx_l0);
     
         if (v0 < 15) {
@@ -297,7 +285,7 @@ control MyIngress(inout headers hdr,
         pcm_l0_r2.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
     
-        bit<16> v1;
+        bit<10> v1;
         pcm_l1_r2.read(v1, idx_l1);
     
         if (v1 < 15) {
@@ -308,7 +296,7 @@ control MyIngress(inout headers hdr,
         pcm_l1_r2.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
     
-        bit<16> v2;
+        bit<10> v2;
         pcm_l2_r2.read(v2, idx_l2);
     
         if (v2 < 15) {
@@ -317,17 +305,7 @@ control MyIngress(inout headers hdr,
         }
     
         pcm_l2_r2.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
     
-        bit<16> v3;
-        pcm_l3_r2.read(v3, idx_l3);
-    
-        if (v3 < 15) {
-            pcm_l3_r2.write(idx_l3, v3 + 1);
-            return;
-        }
-    
-        pcm_l3_r2.write(idx_l3, 15);
     }
 
     action drop() {
@@ -363,9 +341,15 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        //if (hdr.ipv4.isValid()){
-            pcm_insert();
-        //}
+        if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              pcm_insert();
+                
+            }
+            
+        }
 
         forwarding.apply();
     }

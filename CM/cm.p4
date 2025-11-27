@@ -9,8 +9,8 @@ typedef bit<32> ip4Addr_t;
 
 
 #define SKETCH_NUM_ROWS 3
-#define SKETCH_COUNTERS_PER_ROW 16
-#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTERS_PER_ROW 14
+#define SKETCH_COUNTER_BIT_WIDTH 10
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
 
@@ -65,6 +65,8 @@ struct metadata {
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch0;
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch1;
     bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch2;
+
+    bit<32> insertion_count;
 
 
 
@@ -155,7 +157,17 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
 
+    register<bit<32>>(1) insert_request_count;
+
+    //register<bit<32>> insert_processed_count;
     
+    
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
+
     action do_sketch_count()
     {
         // Sketch 0
@@ -221,8 +233,15 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
-            do_sketch_count();
+        
+        if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              do_sketch_count();
+                
+            }
+            
         }
 
         forwarding.apply();
