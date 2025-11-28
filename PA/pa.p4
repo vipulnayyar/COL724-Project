@@ -9,8 +9,8 @@ typedef bit<32> ip4Addr_t;
 
 
 #define SKETCH_NUM_ROWS 3
-#define SKETCH_COUNTERS_PER_ROW 16
-#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTERS_PER_ROW 14
+#define SKETCH_COUNTER_BIT_WIDTH 10
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
 
@@ -81,6 +81,8 @@ struct metadata {
 
     bit<32> filter_key2;
     bit<16> filter_count2;
+
+    bit<32> insertion_count;
 
 
 
@@ -173,22 +175,29 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
     
     // ===== Row 0 =====
-    register<bit<16>>(16) pa_l0_r0;
-    register<bit<16>>(8)  pa_l1_r0;
-    register<bit<16>>(4)  pa_l2_r0;
-    register<bit<16>>(2)  pa_l3_r0;
-
+    register<bit<10>>(8) pa_l0_r0;
+    register<bit<10>>(4)  pa_l1_r0;
+    register<bit<10>>(2)  pa_l2_r0;
+    
     // ===== Row 1 =====
-    register<bit<16>>(16) pa_l0_r1;
-    register<bit<16>>(8)  pa_l1_r1;
-    register<bit<16>>(4)  pa_l2_r1;
-    register<bit<16>>(2)  pa_l3_r1;
+    register<bit<10>>(8) pa_l0_r1;
+    register<bit<10>>(4)  pa_l1_r1;
+    register<bit<10>>(2)  pa_l2_r1;
 
     // ===== Row 2 =====
-    register<bit<16>>(16) pa_l0_r2;
-    register<bit<16>>(8)  pa_l1_r2;
-    register<bit<16>>(4)  pa_l2_r2;
-    register<bit<16>>(2)  pa_l3_r2;
+    register<bit<10>>(8) pa_l0_r2;
+    register<bit<10>>(4)  pa_l1_r2;
+    register<bit<10>>(2)  pa_l2_r2;
+
+    register<bit<32>>(1) insert_request_count;
+
+
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
+
 
     action pa_hash() {
         bit<32> h;
@@ -217,10 +226,10 @@ control MyIngress(inout headers hdr,
 
     action pa_carry_r0(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pa_l0_r0.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(v0 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l0_r0.write(idx_l0, v0 + 1);
             }
@@ -233,10 +242,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pa_l1_r0.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if(v1 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l1_r0.write(idx_l1, v1 + 1);
             }
@@ -249,10 +258,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pa_l2_r0.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
 
             if(v2 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l2_r0.write(idx_l2, v2 + 1);
@@ -264,33 +273,16 @@ control MyIngress(inout headers hdr,
         }
 
         pa_l2_r0.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pa_l3_r0.read(v3, idx_l3);
-
-        if (v3 < 15) {
-
-            if(v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pa_l3_r0.write(idx_l2, v3 + 1);
-            }
-           
-
-            return;
-        }
-
-        // top overflow → saturate
-        pa_l3_r0.write(idx_l3, 15);
+        
         
     }
 
     action pa_carry_r1(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pa_l0_r1.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(v0 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l0_r1.write(idx_l0, v0 + 1);
             }
@@ -303,10 +295,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pa_l1_r1.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if(v1 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l1_r1.write(idx_l1, v1 + 1);
             }
@@ -318,10 +310,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pa_l2_r1.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             if(v2 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l2_r1.write(idx_l2, v2 + 1);
             }
@@ -331,30 +323,15 @@ control MyIngress(inout headers hdr,
         }
 
         pa_l2_r1.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pa_l3_r1.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            if(v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pa_l3_r1.write(idx_l3, v3 + 1);
-            }
-            
-
-            return;
-        }
-
-        pa_l3_r1.write(idx_l3, 15);
+        
     }
 
     action pa_carry_r2(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pa_l0_r2.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(v0 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l0_r2.write(idx_l0, v0 + 1);
             }
@@ -367,10 +344,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pa_l1_r2.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if( v1 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l1_r2.write(idx_l1, v1 + 1);
             }
@@ -383,10 +360,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pa_l2_r2.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             if(v2 < (SKETCH_COUNTER_MAX_COUNT)){
                   pa_l2_r2.write(idx_l2, v2 + 1);
             }
@@ -396,23 +373,7 @@ control MyIngress(inout headers hdr,
         }
 
         pa_l2_r2.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-
-
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pa_l3_r2.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            if(v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                  pa_l3_r2.write(idx_l3, v3 + 1);
-            }
-           
-
-            return;
-        }
-
-        pa_l3_r2.write(idx_l3, 15);
+        
     }
 
     action drop() {
@@ -517,8 +478,14 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
-            pa_insert();
+        if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              pa_insert();
+                
+            }
+            
         }
 
         forwarding.apply();

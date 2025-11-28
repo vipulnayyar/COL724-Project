@@ -40,6 +40,13 @@ actions {
 }
 actions {
   preamble {
+    id: 29252228
+    name: "MyIngress.increase_insert_count"
+    alias: "increase_insert_count"
+  }
+}
+actions {
+  preamble {
     id: 25652968
     name: "MyIngress.drop"
     alias: "drop"
@@ -73,11 +80,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
 }
 registers {
   preamble {
@@ -88,11 +95,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
 }
 registers {
   preamble {
@@ -103,11 +110,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
 }
 registers {
   preamble {
@@ -118,11 +125,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 8
 }
 registers {
   preamble {
@@ -133,11 +140,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 8
+  size: 4
 }
 registers {
   preamble {
@@ -148,22 +155,7 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
-      }
-    }
-  }
-  size: 4
-}
-registers {
-  preamble {
-    id: 372736549
-    name: "MyIngress.pa_l3_r0"
-    alias: "pa_l3_r0"
-  }
-  type_spec {
-    bitstring {
-      bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
@@ -178,11 +170,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 8
 }
 registers {
   preamble {
@@ -193,11 +185,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 8
+  size: 4
 }
 registers {
   preamble {
@@ -208,22 +200,7 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
-      }
-    }
-  }
-  size: 4
-}
-registers {
-  preamble {
-    id: 385216417
-    name: "MyIngress.pa_l3_r1"
-    alias: "pa_l3_r1"
-  }
-  type_spec {
-    bitstring {
-      bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
@@ -238,11 +215,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 8
 }
 registers {
   preamble {
@@ -253,11 +230,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 8
+  size: 4
 }
 registers {
   preamble {
@@ -268,26 +245,26 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
-      }
-    }
-  }
-  size: 4
-}
-registers {
-  preamble {
-    id: 381287720
-    name: "MyIngress.pa_l3_r2"
-    alias: "pa_l3_r2"
-  }
-  type_spec {
-    bitstring {
-      bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
   size: 2
+}
+registers {
+  preamble {
+    id: 370288206
+    name: "MyIngress.insert_request_count"
+    alias: "insert_request_count"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 1
 }
 type_info {
 }

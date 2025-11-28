@@ -9,14 +9,12 @@ typedef bit<32> ip4Addr_t;
 
 
 #define SKETCH_NUM_ROWS 3
-#define SKETCH_COUNTERS_PER_ROW 16
-#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTER_BIT_WIDTH 10
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
-#define PC_L0_SIZE 16
-#define PC_L1_SIZE 8
-#define PC_L2_SIZE 4
-#define PC_L3_SIZE 2
+#define PC_L0_SIZE 8
+#define PC_L1_SIZE 4
+#define PC_L2_SIZE 2
 
 
 header ethernet_t {
@@ -77,6 +75,7 @@ struct metadata {
     bit<1>  sign0;
     bit<1>  sign1;
     bit<1>  sign2;
+    bit<32> insertion_count;
 
 
     
@@ -162,42 +161,47 @@ control MyIngress(inout headers hdr,
                   inout metadata meta,
                   inout standard_metadata_t standard_metadata) {
 
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch0;
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
+   
     
     // ===== Row 0 =====
-    register<bit<16>>(16) pc_l0_r0;
-    register<bit<16>>(8)  pc_l1_r0;
-    register<bit<16>>(4)  pc_l2_r0;
-    register<bit<16>>(2)  pc_l3_r0;
+    register<bit<10>>(8) pc_l0_r0;
+    register<bit<10>>(4)  pc_l1_r0;
+    register<bit<10>>(2)  pc_l2_r0;
 
     // ===== Row 1 =====
-    register<bit<16>>(16) pc_l0_r1;
-    register<bit<16>>(8)  pc_l1_r1;
-    register<bit<16>>(4)  pc_l2_r1;
-    register<bit<16>>(2)  pc_l3_r1;
-
+    register<bit<10>>(8)  pc_l0_r1;
+    register<bit<10>>(4)  pc_l1_r1;
+    register<bit<10>>(2)  pc_l2_r1;
+    
     // ===== Row 2 =====
-    register<bit<16>>(16) pc_l0_r2;
-    register<bit<16>>(8)  pc_l1_r2;
-    register<bit<16>>(4)  pc_l2_r2;
-    register<bit<16>>(2)  pc_l3_r2;
+    register<bit<10>>(8)  pc_l0_r2;
+    register<bit<10>>(4)  pc_l1_r2;
+    register<bit<10>>(2)  pc_l2_r2;
+
+    register<bit<32>>(1) insert_request_count;
+
+
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
+
 
     action pc_hash() {
         bit<32> h;
 
-        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
         
         hash(meta.sign0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)2);
         
 
-        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
 
         hash(meta.sign1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)2);
 
 
-        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
 
         hash(meta.sign2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)2);
 
@@ -205,10 +209,10 @@ control MyIngress(inout headers hdr,
 
     action pc_carry_r0(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pc_l0_r0.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(meta.sign0 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l0_r0.write(idx_l0, v0 + 1);
             }
@@ -224,10 +228,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pc_l1_r0.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if(meta.sign0 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l1_r0.write(idx_l1, v1 + 1);
             }
@@ -242,10 +246,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pc_l2_r0.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
 
             if(meta.sign0 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l2_r0.write(idx_l2, v2 + 1);
@@ -261,33 +265,15 @@ control MyIngress(inout headers hdr,
         pc_l2_r0.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pc_l3_r0.read(v3, idx_l3);
-
-        if (v3 < 15) {
-
-            if(meta.sign0 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                pc_l3_r0.write(idx_l2, v3 + 1);
-            }
-            else if(meta.sign0 == 1 && v3 > 0){
-                pc_l3_r0.write(idx_l2, v3 - 1);
-            }
-
-            return;
-        }
-
-        // top overflow → saturate
-        pc_l3_r0.write(idx_l3, 15);
-        
+       
     }
 
     action pc_carry_r1(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pc_l0_r1.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(meta.sign1 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l0_r1.write(idx_l0, v0 + 1);
             }
@@ -302,10 +288,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pc_l1_r1.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if(meta.sign1 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l1_r1.write(idx_l1, v1 + 1);
             }
@@ -320,10 +306,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pc_l2_r1.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             if(meta.sign1 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l2_r1.write(idx_l2, v2 + 1);
             }
@@ -337,30 +323,15 @@ control MyIngress(inout headers hdr,
         pc_l2_r1.write(idx_l2, 0);
         bit<32> idx_l3 = idx_l2 >> 1;
 
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pc_l3_r1.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            if(meta.sign1 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                pc_l3_r1.write(idx_l3, v3 + 1);
-            }
-            else if(meta.sign1 == 1 && v3 > 0){
-                pc_l3_r1.write(idx_l3, v3 - 1);
-            }
-
-            return;
-        }
-
-        pc_l3_r1.write(idx_l3, 15);
+        
     }
 
     action pc_carry_r2(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pc_l0_r2.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             if(meta.sign2 == 0 && v0 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l0_r2.write(idx_l0, v0 + 1);
             }
@@ -376,10 +347,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pc_l1_r2.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             if(meta.sign2 == 0 && v1 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l1_r2.write(idx_l1, v1 + 1);
             }
@@ -394,10 +365,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pc_l2_r2.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             if(meta.sign2 == 0 && v2 < (SKETCH_COUNTER_MAX_COUNT)){
                 pc_l2_r2.write(idx_l2, v2 + 1);
             }
@@ -412,22 +383,7 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l3 = idx_l2 >> 1;
 
 
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pc_l3_r2.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            if(meta.sign2 == 0 && v3 < (SKETCH_COUNTER_MAX_COUNT)){
-                pc_l3_r2.write(idx_l3, v3 + 1);
-            }
-            else if(meta.sign2 == 1 && v3 > 0){
-                pc_l3_r2.write(idx_l3, v3 - 1);
-            }
-
-            return;
-        }
-
-        pc_l3_r2.write(idx_l3, 15);
+       
     }
 
     action drop() {
@@ -463,8 +419,14 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
-            pc_insert();
+        if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              pc_insert();
+                
+            }
+            
         }
 
         forwarding.apply();

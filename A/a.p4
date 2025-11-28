@@ -9,8 +9,8 @@ typedef bit<32> ip4Addr_t;
 
 
 #define SKETCH_NUM_ROWS 3
-#define SKETCH_COUNTERS_PER_ROW 16
-#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTERS_PER_ROW 14
+#define SKETCH_COUNTER_BIT_WIDTH 10
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
 #define FILTER_SIZE 3
@@ -76,6 +76,8 @@ struct metadata {
 
     bit<32> filter_key2;
     bit<16> filter_count2;
+
+    bit<32> insertion_count;
 
 }
 
@@ -163,6 +165,15 @@ control MyIngress(inout headers hdr,
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
     register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
     
+    register<bit<32>>(1) insert_request_count;
+
+    
+    
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
     action compute_flow_hash() {
         hash(meta.flow_hash,
             HashAlgorithm.crc32,
@@ -172,7 +183,7 @@ control MyIngress(inout headers hdr,
             hdr.tcp.srcPort,
             hdr.tcp.dstPort,
             hdr.ipv4.protocol },
-            (bit<32>)32);
+            (bit<32>)SKETCH_COUNTERS_PER_ROW);
     }
 
     action asketch_insert() {
@@ -302,10 +313,17 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
-            compute_flow_hash();
-            asketch_insert();
+         if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              compute_flow_hash();
+              asketch_insert();
+                
+            }
+            
         }
+
 
         forwarding.apply();
     }
