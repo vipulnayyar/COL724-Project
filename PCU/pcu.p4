@@ -9,8 +9,8 @@ typedef bit<32> ip4Addr_t;
 
 
 #define SKETCH_NUM_ROWS 3
-#define SKETCH_COUNTERS_PER_ROW 16
-#define SKETCH_COUNTER_BIT_WIDTH 16
+#define SKETCH_COUNTERS_PER_ROW 14
+#define SKETCH_COUNTER_BIT_WIDTH 10
 #define SKETCH_COUNTER_MAX_COUNT (1 << SKETCH_COUNTER_BIT_WIDTH) - 1
 
 header ethernet_t {
@@ -59,16 +59,18 @@ struct metadata {
     bit<32> index_sketch0;
     bit<32> index_sketch1;
     bit<32> index_sketch2;
-    
-    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch0;
-    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch1;
-    bit<SKETCH_COUNTER_BIT_WIDTH> value_sketch2;
+
+    bit<10> value_sketch0;
+    bit<10> value_sketch1;
+    bit<10> value_sketch2;
 
     bit<32> idx0;
     bit<32> idx1;
     bit<32> idx2;
 
     bit<SKETCH_COUNTER_BIT_WIDTH> min_val;
+
+    bit<32> insertion_count;
     
 }
 
@@ -152,45 +154,46 @@ control MyIngress(inout headers hdr,
                   inout metadata meta,
                   inout standard_metadata_t standard_metadata) {
 
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch0;
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch1;
-    register<bit<SKETCH_COUNTER_BIT_WIDTH>>(SKETCH_COUNTERS_PER_ROW) sketch2;
-
     // ===== Row 0 =====
-    register<bit<16>>(16) pcu_l0_r0;
-    register<bit<16>>(8)  pcu_l1_r0;
-    register<bit<16>>(4)  pcu_l2_r0;
-    register<bit<16>>(2)  pcu_l3_r0;
+    register<bit<10>>(8)  pcu_l0_r0;
+    register<bit<10>>(4)  pcu_l1_r0;
+    register<bit<10>>(2)  pcu_l2_r0;
 
     // ===== Row 1 =====
-    register<bit<16>>(16) pcu_l0_r1;
-    register<bit<16>>(8)  pcu_l1_r1;
-    register<bit<16>>(4)  pcu_l2_r1;
-    register<bit<16>>(2)  pcu_l3_r1;
+    register<bit<10>>(8)  pcu_l0_r1;
+    register<bit<10>>(4)  pcu_l1_r1;
+    register<bit<10>>(2)  pcu_l2_r1;
 
     // ===== Row 2 =====
-    register<bit<16>>(16) pcu_l0_r2;
-    register<bit<16>>(8)  pcu_l1_r2;
-    register<bit<16>>(4)  pcu_l2_r2;
-    register<bit<16>>(2)  pcu_l3_r2;
+    register<bit<10>>(8)  pcu_l0_r2;
+    register<bit<10>>(4)  pcu_l1_r2;
+    register<bit<10>>(2)  pcu_l2_r2;
+
+    register<bit<32>>(1) insert_request_count;
+
+    action increase_insert_count() {
+        insert_request_count.read(meta.insertion_count, 0);
+        meta.insertion_count = meta.insertion_count + 1;
+        insert_request_count.write(0, meta.insertion_count);
+    }
 
     action pcu_hash() {
         bit<32> h;
 
-        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx0, HashAlgorithm.crc32, (bit<32>)0, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
 
-        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx1, HashAlgorithm.crc32, (bit<32>)1, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
 
-        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)16);
+        hash(meta.idx2, HashAlgorithm.crc32, (bit<32>)2, { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol }, (bit<32>)8);
     } 
     
 
     action pcu_carry_r0(bit<32> idx_l0) {
         // ----- Layer 0 -----
-        bit<16> v0;
+        bit<10> v0;
         pcu_l0_r0.read(v0, idx_l0);
 
-        if (v0 < 15) {
+        if (v0 < 1023) {
             pcu_l0_r0.write(idx_l0, v0 + 1);
             return;
         }
@@ -200,10 +203,10 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l1 = idx_l0 >> 1;
 
         // ----- Layer 1 -----
-        bit<16> v1;
+        bit<10> v1;
         pcu_l1_r0.read(v1, idx_l1);
 
-        if (v1 < 15) {
+        if (v1 < 1023) {
             pcu_l1_r0.write(idx_l1, v1 + 1);
             return;
         }
@@ -212,36 +215,24 @@ control MyIngress(inout headers hdr,
         bit<32> idx_l2 = idx_l1 >> 1;
 
         // ----- Layer 2 -----
-        bit<16> v2;
+        bit<10> v2;
         pcu_l2_r0.read(v2, idx_l2);
 
-        if (v2 < 15) {
+        if (v2 < 1023) {
             pcu_l2_r0.write(idx_l2, v2 + 1);
             return;
         }
 
         pcu_l2_r0.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-
-        // ----- Layer 3 -----
-        bit<16> v3;
-        pcu_l3_r0.read(v3, idx_l3);
-
-        if (v3 < 15) {
-            pcu_l3_r0.write(idx_l3, v3 + 1);
-            return;
-        }
-
-        // top overflow → saturate
-        pcu_l3_r0.write(idx_l3, 15);
+        
         
     }
 
     action pcu_carry_r1(bit<32> idx_l0) {
-        bit<16> v0;
+        bit<10> v0;
         pcu_l0_r1.read(v0, idx_l0);
     
-        if (v0 < 15) {
+        if (v0 < 1023) {
             pcu_l0_r1.write(idx_l0, v0 + 1);
             return;
         }
@@ -249,10 +240,10 @@ control MyIngress(inout headers hdr,
         pcu_l0_r1.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
     
-        bit<16> v1;
+        bit<10> v1;
         pcu_l1_r1.read(v1, idx_l1);
     
-        if (v1 < 15) {
+        if (v1 < 1023) {
             pcu_l1_r1.write(idx_l1, v1 + 1);
             return;
         }
@@ -260,33 +251,23 @@ control MyIngress(inout headers hdr,
         pcu_l1_r1.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
     
-        bit<16> v2;
+        bit<10> v2;
         pcu_l2_r1.read(v2, idx_l2);
     
-        if (v2 < 15) {
+        if (v2 < 1023) {
             pcu_l2_r1.write(idx_l2, v2 + 1);
             return;
         }
     
         pcu_l2_r1.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
-    
-        bit<16> v3;
-        pcu_l3_r1.read(v3, idx_l3);
-    
-        if (v3 < 15) {
-            pcu_l3_r1.write(idx_l3, v3 + 1);
-            return;
-        }
-    
-        pcu_l3_r1.write(idx_l3, 15);
+        
     }
 
     action pcu_carry_r2(bit<32> idx_l0) {
-        bit<16> v0;
+        bit<10> v0;
         pcu_l0_r2.read(v0, idx_l0);
     
-        if (v0 < 15) {
+        if (v0 < 1023) {
             pcu_l0_r2.write(idx_l0, v0 + 1);
             return;
         }
@@ -294,10 +275,10 @@ control MyIngress(inout headers hdr,
         pcu_l0_r2.write(idx_l0, 0);
         bit<32> idx_l1 = idx_l0 >> 1;
     
-        bit<16> v1;
+        bit<10> v1;
         pcu_l1_r2.read(v1, idx_l1);
     
-        if (v1 < 15) {
+        if (v1 < 1023) {
             pcu_l1_r2.write(idx_l1, v1 + 1);
             return;
         }
@@ -305,38 +286,29 @@ control MyIngress(inout headers hdr,
         pcu_l1_r2.write(idx_l1, 0);
         bit<32> idx_l2 = idx_l1 >> 1;
     
-        bit<16> v2;
+        bit<10> v2;
         pcu_l2_r2.read(v2, idx_l2);
     
-        if (v2 < 15) {
+        if (v2 < 1023) {
             pcu_l2_r2.write(idx_l2, v2 + 1);
             return;
         }
     
         pcu_l2_r2.write(idx_l2, 0);
-        bit<32> idx_l3 = idx_l2 >> 1;
     
-        bit<16> v3;
-        pcu_l3_r2.read(v3, idx_l3);
-    
-        if (v3 < 15) {
-            pcu_l3_r2.write(idx_l3, v3 + 1);
-            return;
-        }
-    
-        pcu_l3_r2.write(idx_l3, 15);
+        
     }
 
     action pcu_insert()
     {
-        meta.min_val = 1<<15;
+        meta.min_val = 1023;
 
         // Sketch 0
         hash(meta.idx0, HashAlgorithm.crc32_custom, (bit<16>)0,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
-            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            (bit<32>)8);
             
-        sketch0.read(meta.value_sketch0, meta.index_sketch0);
+        pcu_l0_r0.read(meta.value_sketch0, meta.index_sketch0);
         if (meta.value_sketch0 < meta.min_val){
             meta.min_val = meta.value_sketch0;
         }
@@ -345,9 +317,9 @@ control MyIngress(inout headers hdr,
 
         hash(meta.idx1, HashAlgorithm.crc32_custom, (bit<16>)1,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
-            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            (bit<32>)8);
             
-        sketch1.read(meta.value_sketch1, meta.index_sketch1);
+        pcu_l0_r1.read(meta.value_sketch1, meta.index_sketch1);
         
         if (meta.value_sketch1 < meta.min_val){
             meta.min_val = meta.value_sketch1;
@@ -356,9 +328,9 @@ control MyIngress(inout headers hdr,
         // Sketch 2
         hash(meta.idx2, HashAlgorithm.crc32_custom, (bit<16>)2,
             { hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.tcp.srcPort, hdr.tcp.dstPort, hdr.ipv4.protocol },
-            (bit<32>)SKETCH_COUNTERS_PER_ROW);
+            (bit<32>)8);
             
-        sketch2.read(meta.value_sketch2, meta.index_sketch2);
+        pcu_l0_r2.read(meta.value_sketch2, meta.index_sketch2);
         if (meta.value_sketch2 < meta.min_val){
             meta.min_val = meta.value_sketch2;
         }
@@ -406,9 +378,16 @@ control MyIngress(inout headers hdr,
 
     apply {
 
-        if (hdr.ipv4.isValid()){
-            pcu_insert();
+        if (hdr.ipv4.isValid() && hdr.tcp.isValid()){
+
+            @atomic{
+              increase_insert_count();
+              pcu_insert();
+                
+            }
+            
         }
+        
 
         forwarding.apply();
     }

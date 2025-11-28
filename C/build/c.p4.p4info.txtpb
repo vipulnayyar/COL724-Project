@@ -40,6 +40,13 @@ actions {
 }
 actions {
   preamble {
+    id: 29252228
+    name: "MyIngress.increase_insert_count"
+    alias: "increase_insert_count"
+  }
+}
+actions {
+  preamble {
     id: 28482681
     name: "MyIngress.do_sketch_count"
     alias: "do_sketch_count"
@@ -73,11 +80,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
 }
 registers {
   preamble {
@@ -88,11 +95,11 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
 }
 registers {
   preamble {
@@ -103,11 +110,26 @@ registers {
   type_spec {
     bitstring {
       bit {
-        bitwidth: 16
+        bitwidth: 10
       }
     }
   }
-  size: 16
+  size: 14
+}
+registers {
+  preamble {
+    id: 370288206
+    name: "MyIngress.insert_request_count"
+    alias: "insert_request_count"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 1
 }
 type_info {
 }
