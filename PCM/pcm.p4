@@ -7,6 +7,7 @@ typedef bit<9>  egressSpec_t;
 typedef bit<48> macAddr_t;
 typedef bit<32> ip4Addr_t;
 
+#define SKETCH_COUNTER_BIT_WIDTH 10
 
 
 #define PCM_L0_SIZE 8
